@@ -1,0 +1,19 @@
+schema_version = 1
+
+[[tools]]
+id = "python3"
+command = "python3"
+required = true
+
+[[tools.install]]
+manager = "brew"
+package = "python@3"
+
+[[tools]]
+id = "git"
+command = "git"
+required = false
+
+[[tools.install]]
+manager = "brew"
+package = "git"

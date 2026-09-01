@@ -1,0 +1,8 @@
+schema_version: 1
+kind: process.exec
+status:
+  exit: {kind: code, code: 0}
+  duration_ms: 11
+  timeout_ms: 30000
+stdout: resources/presentation-fixtures/judge_contract/stdout.json
+stderr: resources/presentation-fixtures/empty.txt
