@@ -50,3 +50,10 @@ Two ready-made repositories are included under `examples/coherent` and `examples
 The checked-in Play package lives under `play/`. Release status and canonical registry links are recorded here only after the Rote lint, live-run, release, registry push, and readback gates have completed successfully.
 
 - Source: <https://github.com/cmdr-chara/documentation-contract-referee>
+- Play: <https://play.modiqo.ai/cmdr-chara/documentation-contract-referee@0.1.0>
+
+Run the published version:
+
+```bash
+rote play run cmdr-chara/documentation-contract-referee@0.1.0 repo_path=/path/to/repository
+```
