@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#11120f"/>
+  <circle cx="1030" cy="60" r="340" fill="#d8ff69" opacity=".16"/>
+  <path d="M74 80h12v470H74z" fill="#d8ff69"/>
+  <text x="130" y="210" fill="#f2f1e9" font-family="Arial, sans-serif" font-size="88" font-weight="700">DOCUMENTATION</text>
+  <text x="130" y="310" fill="#f2f1e9" font-family="Arial, sans-serif" font-size="88" font-weight="700">CONTRACT REFEREE</text>
+  <text x="135" y="420" fill="#b4b4aa" font-family="Arial, sans-serif" font-size="34">Claims meet evidence. Before developers meet dead ends.</text>
+  <rect x="135" y="482" width="290" height="64" rx="32" fill="#d8ff69"/>
+  <text x="185" y="524" fill="#11120f" font-family="Arial, sans-serif" font-size="26" font-weight="700">CONTRACT HOLDS</text>
+</svg>

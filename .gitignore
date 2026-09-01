@@ -1,3 +1,6 @@
 __pycache__/
 *.py[cod]
 .rote-flow-lint.json
+site/node_modules/
+site/dist/
+tmp-visual-checks/

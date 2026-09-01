@@ -51,6 +51,7 @@ The checked-in Play package lives under `play/`. Release status and canonical re
 
 - Source: <https://github.com/cmdr-chara/documentation-contract-referee>
 - Play: <https://play.modiqo.ai/cmdr-chara/documentation-contract-referee@0.1.0>
+- Landing: <https://cmdr-chara.github.io/documentation-contract-referee/>
 
 Run the published version:
 
