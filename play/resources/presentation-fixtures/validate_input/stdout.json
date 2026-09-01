@@ -1,1 +1,1 @@
-{"baseline_sha":"","docs_spec":"README.md,docs","max_findings":3,"ok":true,"repo":"/tmp/documentation-contract-demo"}
+{"baseline_sha":"","demo":"coherent","docs_spec":"README.md,docs","max_findings":3,"ok":true,"repo":"/tmp/documentation-contract-demo","verification":"static"}

@@ -6,13 +6,13 @@
  * @rote-frontmatter
  * ---
  * name: documentation-contract-referee
- * version: 0.1.0
- * description: 'Referees executable claims in README files and runbooks against repository evidence: package scripts, Make targets, Just recipes, local links, package manager, versions, and environment templates. Returns a compact contract verdict with evidence and fixes. Read-only and credential-free.'
+ * version: 0.2.0
+ * description: 'Referees executable claims in README files and runbooks against repository evidence: commands, prerequisites, Markdown anchors, package scripts, Make targets, Just recipes, package manager, versions, and environment templates. Returns a compact contract verdict with coverage, evidence, and fixes. Credential-free and never executes copied documentation commands.'
  * provenance:
  *   author: cmdr-chara
  * metadata:
  *   rote_version: 0.77.0
- *   version: 0.1.0
+ *   version: 0.2.0
  *   status: released
  *   kind: atomic
  *   execution_model: steps_with_presentation
@@ -55,6 +55,25 @@
  *   description: Optional git commit used to flag executable-contract changes made without documentation changes.
  *   example: HEAD~1
  *   valid_values: null
+ * - name: verification
+ *   param_type: string
+ *   required: false
+ *   default: static
+ *   description: Use static checks only, or execute reconstructed allow-listed CLI help forms without running copied commands.
+ *   example: safe-help
+ *   valid_values:
+ *   - static
+ *   - safe-help
+ * - name: demo
+ *   param_type: string
+ *   required: false
+ *   default: ''
+ *   description: Optional deterministic built-in demonstration; leave empty to inspect repo_path.
+ *   example: stale
+ *   valid_values:
+ *   - ''
+ *   - coherent
+ *   - stale
  * presentation_fixtures:
  *   validate_input: resources/presentation-fixtures/validate_input/fixture.yaml
  *   scan_documentation: resources/presentation-fixtures/scan_documentation/fixture.yaml
@@ -71,6 +90,8 @@
  *     - $docs_paths
  *     - $max_findings
  *     - $baseline_sha
+ *     - $verification
+ *     - $demo
  *   scan_documentation:
  *     type: process.exec
  *     timeout_ms: 30000
@@ -81,6 +102,7 @@
  *     - '@resource{scan_docs.py}'
  *     - '@validate_input{$.stdout.text | fromjson | .repo}'
  *     - '@validate_input{$.stdout.text | fromjson | .docs_spec}'
+ *     - '@validate_input{$.stdout.text | fromjson | .demo}'
  *   scan_repository:
  *     type: process.exec
  *     timeout_ms: 30000
@@ -91,6 +113,7 @@
  *     - '@resource{scan_repo.py}'
  *     - '@validate_input{$.stdout.text | fromjson | .repo}'
  *     - '@validate_input{$.stdout.text | fromjson | .baseline_sha}'
+ *     - '@validate_input{$.stdout.text | fromjson | .demo}'
  *   judge_contract:
  *     type: process.exec
  *     timeout_ms: 30000
@@ -104,6 +127,8 @@
  *     - '@scan_documentation{$.stdout.text | fromjson | .payload}'
  *     - '@scan_repository{$.stdout.text | fromjson | .payload}'
  *     - '@validate_input{$.stdout.text | fromjson | .max_findings}'
+ *     - '@validate_input{$.stdout.text | fromjson | .verification}'
+ *     - '@validate_input{$.stdout.text | fromjson | .demo}'
  * ---
  */
 
@@ -172,14 +197,15 @@ if (!assessment) {
   if (assessment.omitted_count > 0) {
     lines.push("", `${assessment.omitted_count} lower-priority finding(s) omitted by max_findings.`);
   }
-  lines.push("", `Judged ${assessment.checked.documented_commands} command claim(s) and ${assessment.checked.local_links} local link claim(s) across ${assessment.checked.documents} document(s).`);
+  lines.push("", `Coverage: ${assessment.checked.documents} document(s) · ${assessment.checked.total_claims} claim(s) · ${assessment.checked.documented_commands} command(s) · ${assessment.checked.local_links} link(s) · ${assessment.checked.anchors} anchor(s) · ${assessment.checked.prerequisites} prerequisite(s) · ${assessment.checked.safe_help_checks} safe-help check(s).`);
+  lines.push(`Verification: ${assessment.verification_mode}; copied documentation commands executed: ${assessment.documented_commands_executed}.`);
   out.human(lines.join("\n"));
-  out.summary(`${label} — ${assessment.finding_count} finding(s); ${assessment.checked.documents} document(s) checked`);
+  out.summary(`${label} — ${assessment.finding_count} finding(s); ${assessment.checked.total_claims} claim(s) across ${assessment.checked.documents} document(s)`);
   out.result({
     ...assessment,
     representations: {
       human: "complete — verdict, stage ledger, selected findings, evidence, and fixes",
-      json: "canonical — adds counts, omitted count, and read-only marker",
+      json: "canonical — adds coverage, verification mode, omitted count, and read-only marker",
       summary: "intentionally lossy — verdict and counts only",
     },
   });

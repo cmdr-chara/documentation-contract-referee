@@ -7,9 +7,9 @@ import evidenceEditorial from "./assets/evidence-editorial.webp";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-const PLAY_URL = "https://play.modiqo.ai/cmdr-chara/documentation-contract-referee@0.1.0";
+const PLAY_URL = "https://play.modiqo.ai/cmdr-chara/documentation-contract-referee";
 const SOURCE_URL = "https://github.com/cmdr-chara/documentation-contract-referee";
-const RUN_COMMAND = "rote play run cmdr-chara/documentation-contract-referee@0.1.0 repo_path=/path/to/repository";
+const RUN_COMMAND = "rote play run cmdr-chara/documentation-contract-referee demo=stale --yes";
 
 const receipts = [
   {
@@ -208,7 +208,7 @@ function App() {
           <article className="bento-card bento-evidence">
             <p className="card-kicker">Evidence ledger</p>
             <h3>Every call has a source and a correction.</h3>
-            <p>Links, scripts, Make targets, Just recipes, versions, lockfiles and env templates.</p>
+            <p>Links, anchors, scripts, prerequisites, Make targets, Just recipes, versions, lockfiles and env templates.</p>
           </article>
           <article className="bento-card bento-verdict">
             <p className="card-kicker">Bounded output</p>
@@ -288,7 +288,7 @@ function App() {
       <section className="action chapter">
         <div className="action-copy">
           <h2>Stop shipping instructions that no longer work.</h2>
-          <p>One read-only command. Evidence in seconds.</p>
+          <p>Start with the built-in stale-docs demo. No repository setup required.</p>
         </div>
         <div className="command-block">
           <code>{RUN_COMMAND}</code>

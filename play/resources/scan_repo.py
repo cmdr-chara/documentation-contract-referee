@@ -2,6 +2,21 @@ import base64, json, pathlib, re, subprocess, sys
 
 repo = pathlib.Path(sys.argv[1]).resolve()
 baseline = sys.argv[2]
+demo = sys.argv[3]
+if demo:
+    coherent = demo == "coherent"
+    payload = {
+        "scripts": {"build": "tsc"} if coherent else {"test": "node --test"},
+        "versions": [{"source": "package.json", "version": "1.2.0" if coherent else "1.0.0"}],
+        "locks": {"npm": True, "pnpm": False, "yarn": False, "bun": False},
+        "env_names": ["API_URL"],
+        "make_targets": [],
+        "just_recipes": [],
+        "changed": [],
+    }
+    packed = base64.b64encode(json.dumps(payload, separators=(",", ":")).encode()).decode()
+    print(json.dumps({"ok": True, "payload": packed, "scripts_found": len(payload["scripts"])}, sort_keys=True))
+    raise SystemExit(0)
 scripts, versions = {}, []
 package = repo / "package.json"
 if package.is_file():
